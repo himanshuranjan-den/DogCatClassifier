@@ -1,0 +1,56 @@
+# Steps to deploy the app in Heroku:
+
+Our main file name should be app.py
+Our flask instance name should be app
+Create a new file and name it as Procfile without any extension
+provide the command in Procfile which will be used by cloud instance at time of deployment
+
+# initilaize git on local
+	git init
+	git add .
+	git commit -m "Initial Commit"
+	
+# Steps to push your code from local to Heroku Cloud
+	heroku login
+	heroku create
+	git remote -v
+	git push origin master
+
+==============================================================================================================================
+==============================================================================================================================
+
+# Steps to deploy the app on AWS using Elastic Beanstalk
+1. Your main file shoould be application.py
+2. Your flask object should be names, which we have named in application.py should be "application"
+3. .ebignore : this is the name of the file which will have the names of other files which we do not want to push on file
+4. create a requirements.txt file 
+	command : pip freeze > requirements.txt
+5. create a folder in your application and name it as .ebextensions
+6. Inside .ebextensions we need to have a file by the name of python.config
+7. In python.config we are supposed to mention the below command
+	option_settings:
+		"aws:elsaticbeanstalk:container:python":WSGIPath: application:application
+
+
+==============================================================================================================================
+==============================================================================================================================
+
+#Steps to deploy the code in GCP
+1. The main file name should be main.py
+2. Your flask object should be names, which we have named in application.py should be "application"
+3. Create a new file and name it as app.yaml
+4. In app.yaml enter the below code:
+	runtime: python
+	env: flex
+	entrypoint: gunicorn -b :$PORT main:application
+
+	runtime_config:
+	  python_version: 3
+
+
+	manual_scaling:
+	  instance: 1
+	recources:
+	  cpu: 1
+	  memory_gb: 0.5
+	  disk_size_gb: 10
